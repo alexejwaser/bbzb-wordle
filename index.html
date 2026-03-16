@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BBZB WORDLE</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- WinXP Title Bar -->
+  <div id="win-titlebar">
+    <span class="win-icon">🏗️</span>
+    <span class="win-title">BBZB Wordle — Berufsraten.exe</span>
+    <div class="win-buttons">
+      <button class="win-btn win-min"   title="Minimieren">_</button>
+      <button class="win-btn win-max"   title="Maximieren">□</button>
+      <button class="win-btn win-close" title="Schliessen" onclick="window.close()">✕</button>
+    </div>
+  </div>
+
+  <!-- WinXP Menu Bar (decorative) -->
+  <div id="win-menubar">
+    <span class="win-menu-item">Datei</span>
+    <span class="win-menu-item">Bearbeiten</span>
+    <span class="win-menu-item">Ansicht</span>
+    <span class="win-menu-item">Favoriten</span>
+    <span class="win-menu-item">?</span>
+  </div>
+
+  <!-- Game Header -->
+  <header id="header">
+    <div class="window-dots">
+      <span class="window-dot"></span>
+      <span class="window-dot"></span>
+      <span class="window-dot"></span>
+    </div>
+    <div id="header-title">BBZB WORDLE</div>
+    <div id="header-meta">
+      <span id="header-date"></span>
+      <span id="header-category"></span>
+    </div>
+  </header>
+
+  <!-- Stats Bar -->
+  <div id="stats-bar">
+    <div class="stat-item">
+      <span class="stat-value" id="stat-played">0</span>
+      <span class="stat-label">Gespielt</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value" id="stat-won">0</span>
+      <span class="stat-label">Gewonnen</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value" id="stat-streak">0 🔥</span>
+      <span class="stat-label">Streak</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value" id="stat-best">-</span>
+      <span class="stat-label">Beste Runde</span>
+    </div>
+  </div>
+
+  <!-- Game Grid + Hint Box -->
+  <main id="grid-area">
+    <div id="grid"></div>
+
+    <div id="hint-box">
+      <div class="hint-titlebar">
+        <span class="hint-titlebar-text">HINWEIS.TXT</span>
+      </div>
+      <div class="hint-body">
+        <span id="hint-category-badge"></span>
+        <span id="hint-description"></span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Pixel Keyboard -->
+  <div id="keyboard">
+    <div class="kb-row" id="kb-row-1"></div>
+    <div class="kb-row" id="kb-row-2"></div>
+    <div class="kb-row" id="kb-row-3"></div>
+  </div>
+
+</div><!-- /#app -->
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- Win / Lose Overlay -->
+<div id="overlay">
+  <div class="overlay-window">
+    <div class="overlay-titlebar" id="overlay-titlebar">
+      <span class="overlay-titlebar-text" id="overlay-title-text"></span>
+    </div>
+    <div class="overlay-body">
+
+      <div class="overlay-emoji" id="overlay-emoji"></div>
+      <div class="overlay-main-text" id="overlay-main-text"></div>
+
+      <!-- Win: XP bar -->
+      <div id="xp-section" style="display:none">
+        <div class="xp-label">
+          <span id="xp-label-left">XP VERDIENT</span>
+          <span id="xp-label-right">0 XP</span>
+        </div>
+        <div class="xp-bar-track">
+          <div class="xp-bar-fill" id="xp-bar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Lose: solution word + description -->
+      <div id="overlay-lose-word" class="overlay-lose-word"  style="display:none"></div>
+      <div id="overlay-lose-desc" class="overlay-description" style="display:none"></div>
+
+      <!-- Win: share text -->
+      <div id="share-section" style="display:none">
+        <div class="share-text-box" id="share-text"></div>
+        <button class="btn btn-yellow btn-full" id="btn-copy">📋 KOPIEREN</button>
+      </div>
+
+      <!-- Class code (both win + lose) -->
+      <div id="class-section">
+        <div class="class-label">KLASSENCODE EINGEBEN UM SCORE ZU TEILEN</div>
+        <div class="class-input-row">
+          <!-- TODO: HUB-INTEGRATION — Klassencode validieren -->
+          <input type="text" id="class-code-input" placeholder="z.B. 3BA22"
+                 maxlength="8" autocomplete="off" spellcheck="false" />
+          <!-- TODO: HUB-INTEGRATION — Score an Klassen-Rangliste senden -->
+          <button class="btn btn-pink" id="btn-send-class">SENDEN</button>
+        </div>
+      </div>
+
+      <button class="btn btn-dark btn-full" id="overlay-cta"></button>
+
+    </div>
+  </div>
+</div>
+
+<!-- Game Logic -->
+<script src="game.js"></script>
+
+</body>
+</html>
